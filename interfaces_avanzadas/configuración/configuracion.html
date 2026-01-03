@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuración | InscribeUV</title>
+  <link rel="stylesheet" href="../inicio/inicio.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #0c5ea8 0%, #043a6b 55%, #032c52 100%);
+      color: #fff;
+      transition: background 0.3s, font-size 0.3s;
+    }
+
+    body.dark {
+      background: radial-gradient(circle at top, #1a1a1a, #000);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(to right, #0b3f6f, #0a4f8f);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .search-bar {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px 70px 10px 16px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #333;
+      cursor: pointer;
+    }
+
+    .icon.search { right: 38px; }
+    .icon.mic { right: 14px; }
+
+    .profile {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #e2dcff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3a2b6d;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+
+    /* ===== CONTENT ===== */
+    main {
+      padding: 40px 60px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 40px;
+    }
+
+    .setting {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 500px;
+      margin-bottom: 30px;
+    }
+
+    .switch {
+      width: 48px;
+      height: 24px;
+      background: #333;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .switch span {
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: 0.3s;
+    }
+
+    .switch.active {
+      background: #4caf50;
+    }
+
+    .switch.active span {
+      left: 26px;
+    }
+
+    input[type="range"] {
+      width: 200px;
+    }
+
+    .help-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 40px;
+      background: #fff;
+      color: #003b6f;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 22px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">InscribeUV</div>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Buscar" />
+    <span class="icon search">🔍</span>
+    <span class="icon mic" onclick="iniciarVoz()">🎤</span>
+
+  </div>
+
+  <a href="../perfiles/miperfil.html" class="profile">👤</a>
+</header>
+
+<nav class="navbar">
+  <a href="../inicio/inicio.html">Inicio</a>
+  <a href="../inscripcion/inscripcion.html">Inscripción</a>
+  <a href="../inicio/oferta.html">Oferta Educativa</a>
+  <a href="https://www.uv.mx/mipago/" target="_blank">MiPago</a>
+  <a href="configuracion.html" class="active">Configuración</a>
+  <a href="#" class="logout">Cerrar Sesión</a>
+</nav>
+
+<main>
+  <h1>CONFIGURACIÓN</h1>
+
+  <div class="setting">
+    <span>Modo Oscuro</span>
+    <div class="switch" id="darkSwitch"><span></span></div>
+  </div>
+
+  <div class="setting">
+    <span>Modo de voz</span>
+    <div class="switch" id="voiceSwitch"><span></span></div>
+  </div>
+
+  <div class="setting">
+    <span>Tamaño de letra</span>
+    <input type="range" min="14" max="20" value="16" id="fontSlider">
+  </div>
+</main>
+
+<button class="help-btn" onclick="location.href='ayuda.html'">AYUDA</button>
+
+<div id="voice-ui" class="voice-ui">
+  <div class="pulse"></div>
+  <p id="voice-text">Escuchando...</p>
+</div>
+
+<script>
+  /* ===== MODO OSCURO ===== */
+  const darkSwitch = document.getElementById('darkSwitch');
+
+  if (localStorage.getItem('darkMode') === 'on') {
+    document.body.classList.add('dark');
+    darkSwitch.classList.add('active');
+  }
+
+  darkSwitch.onclick = () => {
+    document.body.classList.toggle('dark');
+    darkSwitch.classList.toggle('active');
+    localStorage.setItem('darkMode',
+      document.body.classList.contains('dark') ? 'on' : 'off'
+    );
+  };
+
+  /* ===== MODO VOZ ===== */
+  const micIcon = document.getElementById('micIcon');
+  const voiceSwitch = document.getElementById('voiceSwitch');
+
+  if (localStorage.getItem('voiceMode') === 'off') {
+    micIcon.style.display = 'none';
+  } else {
+    voiceSwitch.classList.add('active');
+  }
+
+  voiceSwitch.onclick = () => {
+    voiceSwitch.classList.toggle('active');
+    const enabled = voiceSwitch.classList.contains('active');
+    micIcon.style.display = enabled ? 'block' : 'none';
+    localStorage.setItem('voiceMode', enabled ? 'on' : 'off');
+  };
+
+  /* ===== TAMAÑO DE LETRA ===== */
+  const slider = document.getElementById('fontSlider');
+  const savedSize = localStorage.getItem('fontSize');
+
+  if (savedSize) {
+    document.body.style.fontSize = savedSize + 'px';
+    slider.value = savedSize;
+  }
+
+  slider.oninput = () => {
+    document.body.style.fontSize = slider.value + 'px';
+    localStorage.setItem('fontSize', slider.value);
+  };
+
+
+</script>
+<script src="../js/js.js"></script>
+<script src="../js/buscar.js"></script>
+
+
+
+</body>
+</html>

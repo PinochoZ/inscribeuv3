@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscripción | InscribeUV</title>
+  <link rel="stylesheet" href="../inicio/inicio.css" />
+
+  <style>
+    /* ESTILO COPIADO DE oferta.html */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #0c5ea8 0%, #043a6b 55%, #032c52 100%);
+      color: #fff;
+    }
+
+    header {
+      background: linear-gradient(to right, #0b3f6f, #0a4f8f);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .logo { font-size: 26px; font-weight: 600; }
+
+    .search-bar { flex: 1; position: relative; }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px 70px 10px 16px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .search-bar .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 38px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .search-bar .mic { right: 14px; }
+
+    .profile {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #e2dcff; color: #3a2b6d;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; font-weight: bold;
+    }
+
+    main { padding: 30px 50px 40px; }
+
+    .cards {
+      display: flex; gap: 30px; overflow-x: auto; margin-bottom: 40px;
+    }
+
+    .card {
+      background: #4f83b8;
+      width: 260px; min-width: 260px;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.35);
+    }
+
+    .card h3 { font-size: 15px; margin-bottom: 12px; }
+    .card p { font-size: 13px; margin-bottom: 6px; }
+
+    .btns { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+
+    .btns button {
+      background: #fff; border: none; border-radius: 20px;
+      padding: 6px 0; font-size: 12px; cursor: pointer;
+      font-weight: 600; color: #003b6f;
+    }
+
+    /* ====== MENÚ HORARIO ====== */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.55);
+      display: none; align-items: center; justify-content: center;
+    }
+
+    .horario-box {
+      background: #fff; color: #003b6f;
+      border-radius: 14px; padding: 20px; width: 320px;
+    }
+
+    .horario-box h4 { margin-bottom: 10px; }
+
+    .horario-box select, .horario-box button {
+      width: 100%; margin-bottom: 10px; padding: 8px;
+    }
+
+    /* ====== TABLA ====== */
+    table {
+      width: 100%; border-collapse: collapse; background: #4f83b8;
+      border-radius: 14px; overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid rgba(255,255,255,.3);
+      padding: 10px; text-align: center; font-size: 13px;
+    }
+
+    th { background: #0b3f6f; }
+
+    .finalizar {
+      margin-top: 15px; float: right;
+      background: #fff; color: #003b6f;
+      border: none; border-radius: 20px;
+      padding: 8px 18px; font-weight: 600; cursor: pointer;
+    }
+    /* ===== MODO OSCURO ===== */
+    body.dark {
+      background: radial-gradient(circle at top, #0a0a0a 0%, #121212 60%, #000 100%);
+      color: #eaeaea;
+    }
+
+/* Tarjetas */
+    body.dark .card {
+      background: #1e2a38;
+    }
+
+/* Tabla horario */
+    body.dark table {
+      background: #1e2a38;
+    }
+
+    body.dark th {
+      background: #0f1c2d;
+      color: #ffffff;
+    }
+
+    body.dark td {
+      background: #1e2a38;
+      color: #eaeaea;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+/* Overlay horario */
+    body.dark .overlay {
+      background: rgba(0,0,0,0.75);
+    }
+
+    body.dark .horario-box {
+      background: #1e2a38;
+      color: #ffffff;
+    }
+
+    body.dark .horario-box select,
+    body.dark .horario-box button {
+      background: #0f1c2d;
+      color: #ffffff;
+      border: none;
+    }
+
+/* Botón finalizar */
+body.dark .finalizar {
+  background: #0f1c2d;
+  color: #ffffff;
+}
+
+/* HEADER */
+body.dark header {
+  background: linear-gradient(to right, #0f1c2d, #16263a);
+}
+
+/* NAVBAR */
+body.dark .navbar {
+  background: #0f1c2d;
+}
+
+body.dark .navbar a {
+  color: #eaeaea;
+}
+
+body.dark .navbar a:hover,
+body.dark .navbar a.active {
+  background: #1e2a38;
+}
+
+/* BUSCADOR */
+body.dark .search-bar input {
+  background: #1e2a38;
+  color: #ffffff;
+}
+
+body.dark .search-bar input::placeholder {
+  color: #bfc7d1;
+}
+
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">InscribeUV</div>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Buscar" />
+    <span class="icon">🔍</span>
+    <span class="icon mic" onclick="iniciarVoz()">🎤</span>
+
+  </div>
+  <a href="../perfiles/miperfil.html" class="profile">👤</a>
+</header>
+
+<nav class="navbar">
+  <a href="../inicio/inicio.html">Inicio</a>
+  <a href="../inscripcion/inscripcion.html">Inscripción</a>
+  <a href="../inicio/oferta.html">Oferta Educativa</a>
+  <a href="https://www.uv.mx/mipago/" target="_blank">MiPago</a>
+  <a href="../configuración/configuracion.html">Configuración</a>
+  <a href="#" class="logout">Cerrar Sesión</a>
+</nav>
+
+<main>
+
+<div class="cards">
+
+  <!-- AREA BÁSICA -->
+  <div class="card" data-materia="Pensamiento Crítico">
+    <h3>Pensamiento Crítico</h3>
+    <p>Área: Básica</p>
+    <p>Profesor: Alejandro Hernandez</p>
+    <p>Créditos: 9</p>
+    <p>NRC: 9123</p>
+    <div class="btns">
+      <button onclick="abrirHorario('Pensamiento Crítico')">Seleccionar horario</button>
+      <button onclick="agregarMateria('Pensamiento Crítico')">Añadir</button>
+    </div>
+  </div>
+
+  <div class="card" data-materia="Programación">
+    <h3>Programación</h3>
+    <p>Área: Básica</p>
+    <p>Profesor: Laura Martínez</p>
+    <p>Créditos: 10</p>
+    <p>NRC: 9231</p>
+    <div class="btns">
+      <button onclick="abrirHorario('Programación')">Seleccionar horario</button>
+      <button onclick="agregarMateria('Programación')">Añadir</button>
+    </div>
+  </div>
+
+  <div class="card" data-materia="Álgebra Lineal">
+    <h3>Álgebra Lineal</h3>
+    <p>Área: Básica</p>
+    <p>Profesor: Carlos Gómez</p>
+    <p>Créditos: 8</p>
+    <p>NRC: 9345</p>
+    <div class="btns">
+      <button onclick="abrirHorario('Álgebra Lineal')">Seleccionar horario</button>
+      <button onclick="agregarMateria('Álgebra Lineal')">Añadir</button>
+    </div>
+  </div>
+
+  <!-- AREA DISCIPLINARIA -->
+  <div class="card" data-materia="Seguridad">
+    <h3>Seguridad</h3>
+    <p>Área: Disciplinaria</p>
+    <p>Profesor: Daniela Ruiz</p>
+    <p>Créditos: 9</p>
+    <p>NRC: 9452</p>
+    <div class="btns">
+      <button onclick="abrirHorario('Seguridad')">Seleccionar horario</button>
+      <button onclick="agregarMateria('Seguridad')">Añadir</button>
+    </div>
+  </div>
+
+  <div class="card" data-materia="Matemáticas Discretas">
+    <h3>Matemáticas Discretas</h3>
+    <p>Área: Disciplinaria</p>
+    <p>Profesor: Alejandro Hernandez</p>
+    <p>Créditos: 9</p>
+    <p>NRC: 9124</p>
+    <div class="btns">
+      <button onclick="abrirHorario('Matemáticas Discretas')">Seleccionar horario</button>
+      <button onclick="agregarMateria('Matemáticas Discretas')">Añadir</button>
+    </div>
+  </div>
+
+  <div class="card" data-materia="Habilidades Directivas">
+    <h3>Habilidades Directivas</h3>
+    <p>Área: Disciplinaria</p>
+    <p>Profesor: Mariana López</p>
+    <p>Créditos: 7</p>
+    <p>NRC: 9560</p>
+    <div class="btns">
+      <button onclick="abrirHorario('Habilidades Directivas')">Seleccionar horario</button>
+      <button onclick="agregarMateria('Habilidades Directivas')">Añadir</button>
+    </div>
+  </div>
+
+</div>
+
+
+<h3>HORARIO</h3>
+<table id="tablaHorario">
+  <tr>
+    <th>Materia</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th>
+  </tr>
+</table>
+
+<button class="finalizar" onclick="finalizarInscripcion()">Finalizar Inscripción</button>
+
+
+</main>
+
+<div class="overlay" id="overlay">
+  <div class="horario-box">
+    <h4>Seleccionar horario</h4>
+    <select id="dia">
+      <option>Lunes</option><option>Martes</option><option>Miércoles</option><option>Jueves</option><option>Viernes</option>
+    </select>
+    <select id="hora">
+      <option>9 - 11 am</option><option>11 am - 1 pm</option><option>4 - 6 pm</option>
+    </select>
+    <button onclick="cerrarHorario()">Aceptar</button>
+  </div>
+</div>
+
+<div id="voice-ui" class="voice-ui">
+  <div class="pulse"></div>
+  <p id="voice-text">Escuchando...</p>
+</div>
+
+<script>
+let materiaActual = "";
+let horarioSeleccionado = {};
+
+function abrirHorario(materia) {
+  materiaActual = materia;
+  document.getElementById('overlay').style.display = 'flex';
+}
+
+function cerrarHorario() {
+  const dia = document.getElementById('dia').value;
+  const hora = document.getElementById('hora').value;
+  horarioSeleccionado[materiaActual] = { dia, hora };
+  document.getElementById('overlay').style.display = 'none';
+}
+
+function agregarMateria(materia) {
+  if (!horarioSeleccionado[materia]) {
+    alert('Primero selecciona un horario');
+    return;
+  }
+
+  // evitar duplicados
+  if (document.getElementById(`fila-${materia}`)) {
+    alert('Esta materia ya fue agregada');
+    return;
+  }
+
+  const fila = document.createElement('tr');
+  fila.id = `fila-${materia}`;
+
+  fila.innerHTML = `
+    <td>${materia}</td>
+    <td></td><td></td><td></td><td></td><td></td>
+    <td>
+      <button onclick="quitarMateria('${materia}')" style="
+        background:#ff5c5c;
+        border:none;
+        border-radius:12px;
+        padding:4px 10px;
+        color:#fff;
+        cursor:pointer;
+        font-size:12px;">
+        Quitar
+      </button>
+    </td>
+  `;
+
+  const dias = ['Lunes','Martes','Miércoles','Jueves','Viernes'];
+  const index = dias.indexOf(horarioSeleccionado[materia].dia) + 1;
+  fila.children[index].innerText = horarioSeleccionado[materia].hora;
+
+  document.getElementById('tablaHorario').appendChild(fila);
+}
+
+function quitarMateria(materia) {
+  const fila = document.getElementById(`fila-${materia}`);
+  if (fila) fila.remove();
+
+  delete horarioSeleccionado[materia];
+}
+
+function finalizarInscripcion() {
+  if (Object.keys(horarioSeleccionado).length === 0) {
+    alert("No has inscrito ninguna materia");
+    return;
+  }
+
+  alert("✅ Realizado.\nRecuerda realizar el pago antes de la fecha indicada.");
+}
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    // 🔥 Aplicar modo oscuro
+    if (localStorage.getItem("darkMode") === "on") {
+      document.body.classList.add("dark");
+    }
+
+    // 🔊 Mostrar / ocultar micrófono
+    if (localStorage.getItem("voiceMode") === "off") {
+      const mic = document.querySelector(".icon.mic");
+      if (mic) mic.style.display = "none";
+    }
+
+    // 🔠 Tamaño de letra
+    const size = localStorage.getItem("fontSize");
+    if (size) {
+      document.body.style.fontSize = size + "px";
+    }
+
+  });
+
+
+
+</script>
+<script src="../js/js.js"></script>
+<script src="../js/buscar.js"></script>
+
+
+</body>
+</html>

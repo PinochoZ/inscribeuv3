@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InscribeUV - Iniciar Sesión</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+  <header class="top-bar">
+  <div class="right">InscribeUV</div>
+  </header>
+
+  <div class="logo-container">
+    <img src="../Imagenes/logo.png" alt="Logo InscribeUV">
+  </div>
+
+
+
+  <main class="container">
+    <h1>INICIAR SESIÓN</h1>
+
+    <div class="user-icon">
+      <div class="circle">
+        <div class="head"></div>
+        <div class="body"></div>
+      </div>
+    </div>
+
+    <form id="loginForm">
+      <div class="field">
+        <label>Matrícula:</label>
+        <input type="text" id="matricula" />
+      </div>
+
+      <div class="field">
+        <label>Contraseña:</label>
+        <input type="password" id="password" />
+      </div>
+
+      <a href="#" class="recover">Recuperar contraseña</a>
+      <button type="submit">Ingresar</button>
+
+    </form>
+  </main>
+
+  <footer class="bottom-bar"></footer>
+
+  <script src="login.js"></script>
+</body>
+</html>

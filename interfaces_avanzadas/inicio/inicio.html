@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InscribeUV - Inicio</title>
+  <link rel="stylesheet" href="inicio.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">InscribeUV</div>
+
+    <div class="search">
+      <input type="text" id="searchInput" placeholder="Buscar" />
+      <span class="icon">🔍</span>
+      <span class="icon mic" onclick="iniciarVoz()">🎤</span>
+
+    </div>
+
+    <a href="../perfiles/miperfil.html" class="profile">👤</a>
+  </header>
+
+  <nav class="navbar">
+    <a href="inicio.html">Inicio</a>
+    <a href="../inscripcion/inscripcion.html">Inscripción</a>
+    <a href="oferta.html">Oferta Educativa</a>
+    <a href="https://www.uv.mx/mipago/" target="_blank">MiPago</a>
+    <a href="../configuración/configuracion.html">Configuración</a>
+    <a href="#" class="logout">Cerrar Sesión</a>
+  </nav>
+
+  <main class="hero">
+    <h1>Realiza tu inscripción<br>en línea...</h1>
+
+    <a href="oferta.html" class="btn">Ver Oferta...</a>
+
+    <div class="mascot">
+      <img src="../Imagenes/luzio.png" alt="Mascota UV" />
+    </div>
+  </main>
+  
+  <div id="voice-ui" class="voice-ui">
+  <div class="pulse"></div>
+  <p id="voice-text">Escuchando...</p>
+</div>
+
+  <script src="inicio.js"></script>
+  <script src="../js/js.js"></script>
+  <script src="../js/buscar.js"></script>
+</body>
+</html>
